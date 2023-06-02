@@ -12,6 +12,8 @@ class DefaultExports {
 
     jwt_expires: any = () => process.env.JWT_EXPIRES
 
+    openai_api_key: any = () => process.env.OPENAI_API_KEY
+
 }
 
 const defaults = new DefaultExports()

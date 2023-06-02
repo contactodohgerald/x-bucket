@@ -30,6 +30,7 @@ class CreateXtifierController {
             xtifier: new_xtifier, 
             ip_address, 
             status: true, 
+            avatar: 'xitifier-main.png',
             country: services.formatInput(country)
         })
 
