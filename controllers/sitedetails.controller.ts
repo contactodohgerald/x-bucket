@@ -1,19 +1,22 @@
-import { Request, Response } from "express"
+import { Response } from "express"
 import asyncHandler from "express-async-handler"
 import Validator from 'validatorjs';
-import SiteDetail from "../model/sitedetails.model";
+import SiteDetail from "../database/model/sitedetails.model";
+import Users from "../database/model/users.model";
+import { IGetUserAuthInfoRequest } from "../types/request";
 
 class SiteDetailsController {
 
-    store = asyncHandler( async(req: Request, res: Response): Promise<any> => {
+    store = asyncHandler( async(req: IGetUserAuthInfoRequest, res: Response): Promise<any> => {
         const body : Record<string, any> = req.body
+
         const validator = new Validator(body, {
             email: 'required|string',
             env: 'required|string',
             address: 'required|string',
         })
         if (validator.fails()) return res.status(400).json({status: false, message: validator.errors.all()})
-
+     
         const { email, env, address, logo_url, twitter, instagram } = body;
         
         const siteExists = await SiteDetail.findOne()

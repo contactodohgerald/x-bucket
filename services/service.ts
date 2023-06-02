@@ -1,4 +1,4 @@
-import SiteDetail from "../model/sitedetails.model"
+import SiteDetail from "../database/model/sitedetails.model"
 
 
 class Services {

@@ -2,14 +2,14 @@ import { Request, Response } from "express"
 import asyncHandler from "express-async-handler"
 import Validator from 'validatorjs';
 import services from "../services/service";
-import Users from "../model/users.model";
+import Users from "../database/model/users.model";
 
 class CreateXtifierController {
 
     store = asyncHandler( async(req: Request, res: Response): Promise<any> => {
         const body : Record<string, any> = req.body
         const validator = new Validator(body, {
-            xtifier: 'required|string|min:5',
+            xtifier: 'required|string|min:3',
             ip_address: 'required|string',
             country: 'required|string|min:3',
         })
@@ -42,5 +42,5 @@ class CreateXtifierController {
 
 }
 
-const create = new CreateXtifierController()
-export default create
+const register = new CreateXtifierController()
+export default register

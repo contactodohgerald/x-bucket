@@ -8,6 +8,10 @@ class DefaultExports {
 
     db_url: any = () => process.env.MONGO_URI
 
+    jwt_secret: any = () => process.env.JWT_SECRET
+
+    jwt_expires: any = () => process.env.JWT_EXPIRES
+
 }
 
 const defaults = new DefaultExports()
