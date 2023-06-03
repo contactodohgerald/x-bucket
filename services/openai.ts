@@ -1,35 +1,25 @@
-import axios  from 'axios';
+import { Configuration, OpenAIApi } from "openai";
 import defaults from '../config/default';
 
-interface address {
-    search_text: string,
-};
+const configuration = new Configuration({
+    apiKey: defaults.openai_api_key(),
+});
 
-class OpenaiHandler {
+const openais: any = new OpenAIApi(configuration)
 
-    geocodeAddress = async (data: address) => {
-        const url = "https://api.openai.com/v1/geocode";
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${defaults.openai_api_key()}`,
-        };
-
-        return new Promise((resolve, reject) => {
-            axios.post(url, data, {headers})
-            .then((res) => {
-                console.log("Response:", res)
-                resolve(res.data);
-            })
-            .catch((err) => {
-                console.log("Geocoding API request failed:", err)
-                reject(err);
-            });
-        })
+const generateResponse = async (prompt: string) => {
+    try{
+        const response = await openais.createCompletion({
+            model: "text-davinci-003",
+            prompt,
+            temperature: 0,
+            max_tokens: 1024,
+        });
+        return response.data.choices[0].text.trim();
+    }catch(err){
+        console.log('error', err)
+        return false
     }
 }
 
-const openai = new OpenaiHandler()
-export default openai
-// geocodeAddress("1600 Amphitheatre Parkway, Mountain View, CA")
-//   .then((result) => console.log(result))
-//   .catch((error) => console.error(error));
+export default generateResponse

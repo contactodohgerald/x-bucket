@@ -7,6 +7,7 @@ export interface IUser  extends Document{
     avatar: string;
     country: string;
     user_type: string;
+    is_subscribed: boolean;
     is_deleted: string;
 }
 
@@ -40,6 +41,10 @@ const UserSchema: Schema = new Schema(
             type: String,
             default: 'user',
         },
+        is_subscribed: {
+            type: String,
+            default: false,
+        },
         is_deleted: {
             type: String,
             default: 'no',
@@ -52,5 +57,5 @@ const UserSchema: Schema = new Schema(
     }
 );
 
-const Users =  mongoose.model<IUser>('User', UserSchema)
+const Users =  mongoose.model<IUser>('Users', UserSchema)
 export default Users

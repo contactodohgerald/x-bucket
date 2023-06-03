@@ -10,6 +10,7 @@ class Services {
     async getSiteDetails () {
         return await SiteDetail.findOne()
     }
+    
 }
 
 const services = new Services()
