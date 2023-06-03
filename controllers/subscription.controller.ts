@@ -20,6 +20,9 @@ class SubscriptionController {
 
         const { trans_id, amount } = body
 
+        const subscribeExist = await Subscription.findOne({ userId: user?._id, status: true})
+        if(subscribeExist) return res.status(500).json({status: false, message: "You subscription is ongoing"})
+
         const response = await flutterwave.verifyPayment(trans_id)
         if(response.data.status == "successful" && response.data.amount >= amount){
 
@@ -27,7 +30,7 @@ class SubscriptionController {
                 userId: user?._id,
                 amount: response.data.amount,
                 trans_ref: trans_id,
-                tx_ref: response.tx_ref,
+                tx_ref: response.data.tx_ref,
                 status: true
             })
             const n_user = await Users.findOneAndUpdate({_id: user?._id}, {is_subscribed: true})
