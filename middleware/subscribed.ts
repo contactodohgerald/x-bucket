@@ -7,10 +7,10 @@ const userIsSubscribed = async (req: IGetUserAuthInfoRequest, res: Response, nex
  
     const user = await Users.findOne({xtifier: req.user?.xtifier});
 
-    if(!user?.is_subscribed) {
-        return res.status(503).json({status: false, mesaage: 'You are not subscribed'})
-    }else{
+    if(user?.is_subscribed) {
         next()
+    }else{
+        return res.status(503).json({status: false, mesaage: 'You are not subscribed'})
     }
   
 }

@@ -14,6 +14,10 @@ class DefaultExports {
 
     openai_api_key: any = () => process.env.OPENAI_API_KEY
 
+    flw_secret_key: any = () => process.env.FLW_SECRET_KEY
+
+    flw_public_key: any = () => process.env.FLW_PUBLIC_KEY
+
 }
 
 const defaults = new DefaultExports()

@@ -11,7 +11,7 @@ class RecipeController {
     storeRecipes = asyncHandler( async (req: IGetUserAuthInfoRequest, res: Response): Promise<any> => {
         const body : Record<string, any> = req.body
         const validator = new Validator(body, {
-            story_prompt: 'required|string|min:3'
+            recipe_prompt: 'required|string|min:3'
         })
         if (validator.fails()) return res.status(400).json({status: false, message: validator.errors.all()})
 

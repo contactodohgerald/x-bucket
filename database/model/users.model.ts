@@ -57,5 +57,5 @@ const UserSchema: Schema = new Schema(
     }
 );
 
-const Users =  mongoose.model<IUser>('Users', UserSchema)
+const Users =  mongoose.model<IUser>('User', UserSchema)
 export default Users
