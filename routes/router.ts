@@ -12,6 +12,7 @@ import stories from '../controllers/story.controller';
 import jokes from '../controllers/joke.controller';
 import recipe from '../controllers/recipe.controller';
 import subscription from '../controllers/subscription.controller';
+import controller from '../controllers/controller';
 
 
 const router = express.Router();
@@ -40,5 +41,13 @@ router.get('/get-user-recipes', verifyLoginToken, recipe.getUserRecipe)
 
 //subscription section
 router.post('/subscribe-user', verifyLoginToken, subscription.subscribeUser)
+
+//newsletter section
+router.post('/newsletter', controller.storeNewsletter)
+router.get('/get-newsletters', verifyLoginToken, userRoles, controller.getNewsletters)
+
+//enquiry section
+router.post('/send-enquiry', controller.storeEnquiry)
+router.get('/get-enquiries', verifyLoginToken, userRoles, controller.getAllEnquiry)
 
 export default router

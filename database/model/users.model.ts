@@ -5,7 +5,7 @@ export interface IUser  extends Document{
     ip_address: string;
     status: string;
     avatar: string;
-    country: string;
+    password: string;
     user_type: string;
     is_subscribed: boolean;
     is_deleted: string;
@@ -32,7 +32,7 @@ const UserSchema: Schema = new Schema(
             type:String,
             trim: true
         },
-        country:  { 
+        password:  { 
             type: String, 
             required: true,
             trim: true
