@@ -4,7 +4,6 @@ export interface IUser  extends Document{
     xtifier: string;
     ip_address: string;
     status: string;
-    avatar: string;
     password: string;
     user_type: string;
     is_subscribed: boolean;
@@ -27,10 +26,6 @@ const UserSchema: Schema = new Schema(
         status: { 
             type:Boolean,
             default: false
-        },
-        avatar: { 
-            type:String,
-            trim: true
         },
         password:  { 
             type: String, 

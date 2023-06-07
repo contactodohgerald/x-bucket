@@ -10,6 +10,15 @@ import Users from "../database/model/users.model";
 
 class Controller {
 
+    getLoggedInUser = asyncHandler( async(req: IGetUserAuthInfoRequest, res: Response): Promise<any> => {
+
+        const user = await Users.findOne({xtifier: req.user?.xtifier});
+        if(!user) return res.status(503).json({status: false, mesaage: 'User not found'})
+
+        return res.status(200).json({status: true, message: 'User returned successfully', data: user})
+
+    })
+
     storeNewsletter = asyncHandler( async(req: Request, res: Response): Promise<any> => {
         const body : Record<string, any> = req.body
         const validator = new Validator(body, {

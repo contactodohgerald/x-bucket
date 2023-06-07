@@ -14,12 +14,11 @@ class CreateXtifierController {
             xtifier: 'required|string|min:3',
             ip_address: 'required|string',
             password: 'required|string|min:3',
-            c_password: 'required|string|min:3',
-            avatar: 'required|string',
+            c_password: 'required|string|min:3'
         })
         if (validator.fails()) return res.status(400).json({status: false, message: validator.errors.all()})
 
-        const { xtifier, ip_address, password, c_password, avatar} = body;
+        const { xtifier, ip_address, password, c_password} = body;
 
         if(password != c_password) return res.status(400).json({status: false, message: "Password does not match"});
 
@@ -37,8 +36,7 @@ class CreateXtifierController {
         const storeXitifier = await Users.create({
             xtifier: new_xtifier, 
             ip_address, 
-            status: true, 
-            avatar,
+            status: true,
             password: hashPassword
         })
 

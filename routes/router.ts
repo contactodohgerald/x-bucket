@@ -7,7 +7,6 @@ import userIsSubscribed from '../middleware/subscribed';
 import register from '../controllers/create.xtifiers.controller';
 import login from '../controllers/login.xtifiers.controller';
 import siteDetails from '../controllers/sitedetails.controller';
-import users from '../controllers/user.controller';
 import stories from '../controllers/story.controller';
 import jokes from '../controllers/joke.controller';
 import recipe from '../controllers/recipe.controller';
@@ -24,8 +23,7 @@ router.post('/login-xtifier', login.store)
 router.post('/create-sitedetails', verifyLoginToken, userRoles, siteDetails.store)
 
 //user section
-router.get('/get-logged-user', verifyLoginToken, users.getLoggedInUser)
-router.put('/update-avatar', verifyLoginToken, users.updateAvatar)
+router.get('/get-logged-user', verifyLoginToken, controller.getLoggedInUser)
 
 //stories section
 router.post('/store-stories', verifyLoginToken, userIsSubscribed, stories.storeStories)
