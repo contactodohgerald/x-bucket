@@ -19,7 +19,13 @@ class StoryController {
 
         const { story_prompt } = body
 
-        const prompt = "hey x-bucket, tell me a humorous story about "+services.formatInput(story_prompt)
+        let prompt: string
+        const occcurences = services.countOccurrences(['story', 'tell', 'about', 'generate', 'a'], story_prompt)
+        if(occcurences >= 2){
+            prompt = "hey x-bucket, "+services.formatInput(story_prompt)
+        }else{
+            prompt = "hey x-bucket, tell me a humorous story about "+services.formatInput(story_prompt)
+        } 
 
         const response = await generateResponse(prompt)
 

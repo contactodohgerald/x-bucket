@@ -19,7 +19,13 @@ class RecipeController {
 
         const { recipe_prompt } = body
 
-        const prompt = "hey x-bucket, generate the recipe for "+services.formatInput(recipe_prompt)
+        let prompt: string
+        const occcurences = services.countOccurrences(['recipe', 'on', 'the', 'of', 'generate', 'a'], recipe_prompt)
+        if(occcurences >= 2){
+            prompt = "hey x-bucket, "+services.formatInput(recipe_prompt)
+        }else{
+            prompt = "hey x-bucket, generate the recipe for "+services.formatInput(recipe_prompt)
+        } 
 
         const response = await generateResponse(prompt)
 

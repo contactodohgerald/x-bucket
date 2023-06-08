@@ -19,7 +19,13 @@ class JokeController {
 
         const { joke_prompt } = body
 
-        const prompt = "hey x-bucket, tell me a funny joke about "+services.formatInput(joke_prompt)
+        let prompt: string
+        const occcurences = services.countOccurrences(['joke', 'tell', 'about', 'generate', 'a'], joke_prompt)
+        if(occcurences >= 2){
+            prompt = "hey x-bucket, "+services.formatInput(joke_prompt)
+        }else{
+            prompt = "hey x-bucket, tell me a funny joke about "+services.formatInput(joke_prompt)
+        } 
 
         const response = await generateResponse(prompt)
 

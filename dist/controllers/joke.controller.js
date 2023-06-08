@@ -20,7 +20,14 @@ class JokeController {
                 return res.status(400).json({ status: false, message: validator.errors.all() });
             const user = await users_model_1.default.findOne({ xtifier: req.user?.xtifier });
             const { joke_prompt } = body;
-            const prompt = "hey x-bucket, tell me a funny joke about " + service_1.default.formatInput(joke_prompt);
+            let prompt;
+            const occcurences = service_1.default.countOccurrences(['joke', 'tell', 'about', 'generate', 'a'], joke_prompt);
+            if (occcurences >= 2) {
+                prompt = "hey x-bucket, " + service_1.default.formatInput(joke_prompt);
+            }
+            else {
+                prompt = "hey x-bucket, tell me a funny joke about " + service_1.default.formatInput(joke_prompt);
+            }
             const response = await (0, openai_1.default)(prompt);
             if (!response)
                 return res.status(403).json({ status: false, message: "there was an issue with your request, please try again later" });

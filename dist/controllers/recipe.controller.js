@@ -20,7 +20,14 @@ class RecipeController {
                 return res.status(400).json({ status: false, message: validator.errors.all() });
             const user = await users_model_1.default.findOne({ xtifier: req.user?.xtifier });
             const { recipe_prompt } = body;
-            const prompt = "hey x-bucket, generate the recipe for " + service_1.default.formatInput(recipe_prompt);
+            let prompt;
+            const occcurences = service_1.default.countOccurrences(['recipe', 'on', 'the', 'of', 'generate', 'a'], recipe_prompt);
+            if (occcurences >= 2) {
+                prompt = "hey x-bucket, " + service_1.default.formatInput(recipe_prompt);
+            }
+            else {
+                prompt = "hey x-bucket, generate the recipe for " + service_1.default.formatInput(recipe_prompt);
+            }
             const response = await (0, openai_1.default)(prompt);
             if (!response)
                 return res.status(403).json({ status: false, message: "there was an issue with your request, please try again later" });

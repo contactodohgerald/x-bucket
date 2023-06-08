@@ -10,7 +10,7 @@ interface RequestWithUserRole extends Request {
 const verifyLoginToken = (req: RequestWithUserRole, res: Response, next: NextFunction) => {
     const token = req.headers?.authorization?.split(" ")[1];
   
-    if (!token || token == null) return res.status(401).json({message: 'Not Authorized' })
+    if (!token || token == null) return res.status(401).json({message: 'Login to continue' })
   
     jwt.verify(token, defaults.jwt_secret(), (err: any, user: any) => {
         if (err instanceof jwt.TokenExpiredError) return res.status(401).json({message: 'Unauthorized! Access Token was expired!' })

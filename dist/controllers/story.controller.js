@@ -20,7 +20,14 @@ class StoryController {
                 return res.status(400).json({ status: false, message: validator.errors.all() });
             const user = await users_model_1.default.findOne({ xtifier: req.user?.xtifier });
             const { story_prompt } = body;
-            const prompt = "hey x-bucket, tell me a humorous story about " + service_1.default.formatInput(story_prompt);
+            let prompt;
+            const occcurences = service_1.default.countOccurrences(['story', 'tell', 'about', 'generate', 'a'], story_prompt);
+            if (occcurences >= 2) {
+                prompt = "hey x-bucket, " + service_1.default.formatInput(story_prompt);
+            }
+            else {
+                prompt = "hey x-bucket, tell me a humorous story about " + service_1.default.formatInput(story_prompt);
+            }
             const response = await (0, openai_1.default)(prompt);
             if (!response)
                 return res.status(403).json({ status: false, message: "there was an issue with your request, please try again later" });
