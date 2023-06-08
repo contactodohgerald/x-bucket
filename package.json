@@ -5,7 +5,8 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon server.ts",
-    "start": "nodemon server.ts"
+    "build": "npx tsc",
+    "start": "node dist/server.js"
   },
   "keywords": [
     "location",
